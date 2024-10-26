@@ -1,54 +1,89 @@
 // Konfiguracja Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc",
-    authDomain: "obowiazki-domowe.firebaseapp.com",
-    projectId: "obowiazki-domowe",
-    storageBucket: "obowiazki-domowe.appspot.com",
-    messagingSenderId: "415821973840",
-    appId: "1:415821973840:web:d57e4c84dfbacc1114c455"
+apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc", 
+authDomain: "obowiazki-domowe.firebaseapp.com", 
+projectId: "obowiazki-domowe", 
+storageBucket: "obowiazki-domowe.appspot.com", 
+messagingSenderId: "415821973840", 
+appId: "1:415821973840:web:d57e4c84dfbacc1114c455"
 };
 
 // Inicjalizacja Firebase i Firestore
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Funkcja dodawania oceny do Firestore
-document.getElementById('form-ocena').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Zapobiega przeładowaniu strony po wysłaniu formularza
-    const uczen = document.getElementById('uczen-ocena').value;
-    const przedmiot = document.getElementById('przedmiot').value;
-    const ocena = document.getElementById('ocena').value;
+// Dodawanie ucznia
+document.getElementById('form-uczen').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const imie = document.getElementById('uczen-imie').value;
+    const nazwisko = document.getElementById('uczen-nazwisko').value;
 
     try {
-        // Zapis oceny do Firestore
-        await db.collection('oceny').add({
-            uczen: uczen,
-            przedmiot: przedmiot,
-            ocena: parseInt(ocena) // Zamienia ocenę na liczbę całkowitą
-        });
-        alert(`Dodano ocenę dla ${uczen}: ${ocena} z ${przedmiot}`);
-        document.getElementById('form-ocena').reset(); // Czyści formularz po dodaniu oceny
-        wyswietlOceny(); // Aktualizuje listę ocen na stronie
+        await db.collection('uczniowie').add({ imie, nazwisko });
+        alert(`Dodano ucznia: ${imie} ${nazwisko}`);
+        document.getElementById('form-uczen').reset();
     } catch (error) {
-        console.error("Błąd przy zapisie do Firestore:", error);
+        console.error("Błąd przy dodawaniu ucznia:", error);
     }
 });
 
-// Funkcja wyświetlania ocen
-async function wyswietlOceny() {
-    const listaOcen = document.getElementById('lista-ocen');
-    listaOcen.innerHTML = '<h3>Oceny</h3>'; // Czyści istniejące dane przed dodaniem nowych
+// Dodawanie oceny
+document.getElementById('form-ocena').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczen = document.getElementById('uczen-ocena').value;
+    const przedmiot = document.getElementById('przedmiot').value;
+    const ocena = parseInt(document.getElementById('ocena').value);
 
     try {
-        const querySnapshot = await db.collection('oceny').get();
-        querySnapshot.forEach((doc) => {
-            const ocenaData = doc.data();
-            listaOcen.innerHTML += `<p>${ocenaData.uczen} - ${ocenaData.przedmiot}: ${ocenaData.ocena}</p>`;
-        });
+        await db.collection('oceny').add({ uczen, przedmiot, ocena });
+        alert(`Dodano ocenę dla ${uczen}: ${ocena} z ${przedmiot}`);
+        document.getElementById('form-ocena').reset();
     } catch (error) {
-        console.error("Błąd przy pobieraniu danych z Firestore:", error);
+        console.error("Błąd przy dodawaniu oceny:", error);
     }
-}
+});
 
-// Wyświetlenie ocen przy załadowaniu strony
-wyswietlOceny();
+// Dodawanie obecności
+document.getElementById('form-obecnosc').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczen = document.getElementById('uczen-obecnosc').value;
+    const obecnosc = document.getElementById('obecnosc').value;
+
+    try {
+        await db.collection('obecnosci').add({ uczen, obecnosc });
+        alert(`Dodano obecność dla ${uczen}: ${obecnosc}`);
+        document.getElementById('form-obecnosc').reset();
+    } catch (error) {
+        console.error("Błąd przy dodawaniu obecności:", error);
+    }
+});
+
+// Dodawanie uwagi
+document.getElementById('form-uwaga').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczen = document.getElementById('uczen-uwaga').value;
+    const uwaga = document.getElementById('uwaga').value;
+
+    try {
+        await db.collection('uwagi').add({ uczen, uwaga });
+        alert(`Dodano uwagę dla ${uczen}`);
+        document.getElementById('form-uwaga').reset();
+    } catch (error) {
+        console.error("Błąd przy dodawaniu uwagi:", error);
+    }
+});
+
+// Dodawanie usprawiedliwienia
+document.getElementById('form-usprawiedliwienie').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczen = document.getElementById('uczen-usprawiedliwienie').value;
+    const usprawiedliwienie = document.getElementById('usprawiedliwienie').value;
+
+    try {
+        await db.collection('usprawiedliwienia').add({ uczen, usprawiedliwienie });
+        alert(`Dodano usprawiedliwienie dla ${uczen}`);
+        document.getElementById('form-usprawiedliwienie').reset();
+    } catch (error) {
+        console.error("Błąd przy dodawaniu usprawiedliwienia:", error);
+    }
+});
