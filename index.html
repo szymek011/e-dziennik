@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Dziennik</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore.js"></script>
+
+
+</head>
+<body>
+    <h1>E-Dziennik Szkolny</h1>
+    <section id="dodawanie-uczniow">
+        <h2>Dodaj ucznia</h2>
+        <form id="form-uczen">
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie" required>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko" required>
+            <button type="submit">Dodaj ucznia</button>
+        </form>
+    </section>
+
+    <section id="dodawanie-ocen">
+        <h2>Dodaj ocenę</h2>
+        <form id="form-ocena">
+            <label for="uczen-ocena">Wybierz ucznia:</label>
+            <input type="text" id="uczen-ocena" name="uczen-ocena" placeholder="Imię i nazwisko ucznia" required>
+            <label for="przedmiot">Przedmiot:</label>
+            <input type="text" id="przedmiot" name="przedmiot" required>
+            <label for="ocena">Ocena:</label>
+            <input type="number" id="ocena" name="ocena" min="1" max="6" required>
+            <button type="submit">Dodaj ocenę</button>
+        </form>
+    </section>
+    
+    <section id="dodawanie-obecnosci">
+        <h2>Dodaj obecność</h2>
+        <form id="form-obecnosc">
+            <label for="uczen-obecnosc">Wybierz ucznia:</label>
+            <input type="text" id="uczen-obecnosc" name="uczen-obecnosc" placeholder="Imię i nazwisko ucznia" required>
+            <label for="data">Data:</label>
+            <input type="date" id="data" name="data" required>
+            <label for="obecnosc">Obecność:</label>
+            <select id="obecnosc" name="obecnosc">
+                <option value="obecny">Obecny</option>
+                <option value="nieobecny">Nieobecny</option>
+                <option value="spóźniony">Spóźniony</option>
+            </select>
+            <button type="submit">Dodaj obecność</button>
+        </form>
+    </section>
+
+    <section id="przeglad-danych">
+        <h2>Przegląd ocen i obecności</h2>
+        <div id="lista-ocen"></div>
+        <div id="lista-obecnosci"></div>
+    </section>
+    
+    
+
+    <!-- Dodaj podobne sekcje dla innych funkcji, jak klasy, oceny itd. -->
+
+    <script src="script.js"></script>
+</body>
+</html>
