@@ -1,11 +1,12 @@
 // Konfiguracja Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc", 
-    authDomain: "obowiazki-domowe.firebaseapp.com", 
-    projectId: "obowiazki-domowe", 
-    storageBucket: "obowiazki-domowe.appspot.com", 
-    messagingSenderId: "415821973840", 
-    appId: "1:415821973840:web:d57e4c84dfbacc1114c455"
+  apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc",
+  authDomain: "obowiazki-domowe.firebaseapp.com",
+  projectId: "obowiazki-domowe",
+  storageBucket: "obowiazki-domowe.appspot.com",
+  messagingSenderId: "415821973840",
+  appId: "1:415821973840:web:d57e4c84dfbacc1114c455",
+  measurementId: "G-XJFKK884VC"
 };
 
 // Inicjalizacja Firebase i Firestore
