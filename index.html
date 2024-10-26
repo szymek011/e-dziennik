@@ -3,72 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Dziennik</title>
-    <link rel="stylesheet" href="style.css">
+    <title>e-Dziennik</title>
 
-   <!-- Firebase App (zawsze wymagane) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-
-<!-- Firestore (baza danych) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-
-
-
+    <!-- Firebase App (zawsze wymagane) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    
+    <!-- Firestore (baza danych) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    
-    <h1>E-Dziennik Szkolny</h1>
-    <section id="dodawanie-uczniow">
-        <h2>Dodaj ucznia</h2>
-        <form id="form-uczen">
-            <label for="imie">Imię:</label>
-            <input type="text" id="imie" name="imie" required>
-            <label for="nazwisko">Nazwisko:</label>
-            <input type="text" id="nazwisko" name="nazwisko" required>
-            <button type="submit">Dodaj ucznia</button>
-        </form>
-    </section>
 
-    <section id="dodawanie-ocen">
-        <h2>Dodaj ocenę</h2>
-        <form id="form-ocena">
-            <label for="uczen-ocena">Wybierz ucznia:</label>
-            <input type="text" id="uczen-ocena" name="uczen-ocena" placeholder="Imię i nazwisko ucznia" required>
-            <label for="przedmiot">Przedmiot:</label>
-            <input type="text" id="przedmiot" name="przedmiot" required>
-            <label for="ocena">Ocena:</label>
-            <input type="number" id="ocena" name="ocena" min="1" max="6" required>
-            <button type="submit">Dodaj ocenę</button>
-        </form>
-    </section>
-    
-    <section id="dodawanie-obecnosci">
-        <h2>Dodaj obecność</h2>
-        <form id="form-obecnosc">
-            <label for="uczen-obecnosc">Wybierz ucznia:</label>
-            <input type="text" id="uczen-obecnosc" name="uczen-obecnosc" placeholder="Imię i nazwisko ucznia" required>
-            <label for="data">Data:</label>
-            <input type="date" id="data" name="data" required>
-            <label for="obecnosc">Obecność:</label>
-            <select id="obecnosc" name="obecnosc">
-                <option value="obecny">Obecny</option>
-                <option value="nieobecny">Nieobecny</option>
-                <option value="spóźniony">Spóźniony</option>
-            </select>
-            <button type="submit">Dodaj obecność</button>
-        </form>
-    </section>
+    <h1>e-Dziennik</h1>
 
-    <section id="przeglad-danych">
-        <h2>Przegląd ocen i obecności</h2>
-        <div id="lista-ocen"></div>
-        <div id="lista-obecnosci"></div>
-    </section>
-    
-    
+    <!-- Formularz do dodawania ocen -->
+    <form id="form-ocena">
+        <label for="uczen-ocena">Uczeń:</label>
+        <input type="text" id="uczen-ocena" required><br>
 
-    <!-- Dodaj podobne sekcje dla innych funkcji, jak klasy, oceny itd. -->
+        <label for="przedmiot">Przedmiot:</label>
+        <input type="text" id="przedmiot" required><br>
 
-    <script src="script.js"></script>
+        <label for="ocena">Ocena:</label>
+        <input type="number" id="ocena" required><br>
+
+        <button type="submit">Dodaj ocenę</button>
+    </form>
+
+    <!-- Sekcja do wyświetlania ocen -->
+    <div id="lista-ocen">
+        <h3>Oceny</h3>
+    </div>
+
+    <script>
+        // Konfiguracja Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc",
+            authDomain: "obowiazki-domowe.firebaseapp.com",
+            projectId: "obowiazki-domowe",
+            storageBucket: "obowiazki-domowe.appspot.com",
+            messagingSenderId: "415821973840",
+            appId: "1:415821973840:web:d57e4c84dfbacc1114c455"
+        };
+
+        // Inicjalizacja Firebase i Firestore
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Funkcja dodawania oceny do Firestore
+        document.getElementById('form-ocena').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const uczen = document.getElementById('uczen-ocena').value;
+            const przedmiot = document.getElementById('przedmiot').value;
+            const ocena = document.getElementById('ocena').value;
+
+            try {
+                // Zapis oceny do Firestore
+                await db.collection('oceny').add({
+                    uczen: uczen,
+                    przedmiot: przedmiot,
+                    ocena: parseInt(ocena)
+                });
+                alert(`Dodano ocenę dla ${uczen}: ${ocena} z ${przedmiot}`);
+                document.getElementById('form-ocena').reset();
+                wyswietlOceny();
+            } catch (error) {
+                console.error("Błąd przy zapisie do Firestore:", error);
+            }
+        });
+
+        // Funkcja wyświetlania ocen
+        async function wyswietlOceny() {
+            const listaOcen = document.getElementById('lista-ocen');
+            listaOcen.innerHTML = '<h3>Oceny</h3>';
+
+            try {
+                const querySnapshot = await db.collection('oceny').get();
+                querySnapshot.forEach((doc) => {
+                    const ocenaData = doc.data();
+                    listaOcen.innerHTML += `<p>${ocenaData.uczen} - ${ocenaData.przedmiot}: ${ocenaData.ocena}</p>`;
+                });
+            } catch (error) {
+                console.error("Błąd przy pobieraniu danych z Firestore:", error);
+            }
+        }
+
+        // Wyświetlenie ocen przy załadowaniu strony
+        wyswietlOceny();
+    </script>
+
 </body>
 </html>
