@@ -1,11 +1,11 @@
 // Konfiguracja Firebase
 const firebaseConfig = {
-apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc", 
-authDomain: "obowiazki-domowe.firebaseapp.com", 
-projectId: "obowiazki-domowe", 
-storageBucket: "obowiazki-domowe.appspot.com", 
-messagingSenderId: "415821973840", 
-appId: "1:415821973840:web:d57e4c84dfbacc1114c455"
+    apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc", 
+    authDomain: "obowiazki-domowe.firebaseapp.com", 
+    projectId: "obowiazki-domowe", 
+    storageBucket: "obowiazki-domowe.appspot.com", 
+    messagingSenderId: "415821973840", 
+    appId: "1:415821973840:web:d57e4c84dfbacc1114c455"
 };
 
 // Inicjalizacja Firebase i Firestore
@@ -19,7 +19,7 @@ document.getElementById('form-uczen').addEventListener('submit', async function(
     const nazwisko = document.getElementById('uczen-nazwisko').value;
 
     try {
-        const docRef = await db.collection('uczniowie').add({ imie, nazwisko });
+        await db.collection('uczniowie').add({ imie, nazwisko });
         alert(`Dodano ucznia: ${imie} ${nazwisko}`);
         document.getElementById('form-uczen').reset();
         dodajUczniowDoSelect(); // Odśwież listę uczniów
@@ -99,4 +99,26 @@ document.getElementById('form-uwaga').addEventListener('submit', async function(
     try {
         await db.collection('uwagi').add({ uczenId, uwaga });
         alert(`Dodano uwagę dla ucznia ID: ${uczenId}`);
-        document.getElementById('
+        document.getElementById('form-uwaga').reset();
+    } catch (error) {
+        console.error("Błąd przy dodawaniu uwagi:", error);
+    }
+});
+
+// Dodawanie usprawiedliwienia
+document.getElementById('form-usprawiedliwienie').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczenId = document.getElementById('uczen-usprawiedliwienie').value;
+    const usprawiedliwienie = document.getElementById('usprawiedliwienie').value;
+
+    try {
+        await db.collection('usprawiedliwienia').add({ uczenId, usprawiedliwienie });
+        alert(`Dodano usprawiedliwienie dla ucznia ID: ${uczenId}`);
+        document.getElementById('form-usprawiedliwienie').reset();
+    } catch (error) {
+        console.error("Błąd przy dodawaniu usprawiedliwienia:", error);
+    }
+});
+
+// Naładowanie uczniów na stronie
+dodajUczniowDoSelect();
