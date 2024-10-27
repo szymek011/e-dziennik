@@ -3,127 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-Dziennik</title>
-
-    <!-- Firebase App (zawsze wymagane) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    
-    <!-- Firestore (baza danych) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-
-    <!-- Link do pliku CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Zmień na ścieżkę do swojego CSS -->
+    <title>E-dziennik</title>
 </head>
 <body>
-
     <nav id="menu">
-    <ul>
-        <li><a href="#lekcje">Lekcje</a></li>
-        <li><a href="#uczniowie">Uczniowie</a></li>
-        <li><a href="#klasa">Moja Klasa</a></li>
-    </ul>
-</nav>
-
-    <section id="lekcje">
-    <!-- Tutaj dodaj zawartość lekcji -->
-</section>
-
-<section id="uczniowie">
-    <h2>Uczniowie</h2>
-    <!-- Tutaj dodaj zawartość dotycząca uczniów -->
-</section>
-
-<section id="klasa">
-    <!-- Tutaj dodaj zawartość dotycząca klasy -->
-
- <!-- Formularz do dodawania oceny -->
-    <h2>Dodaj ocenę</h2>
-    <form id="form-ocena">
-        <label for="uczen-ocena">Uczeń:</label>
-        <select id="uczen-ocena" required></select><br>
-
-        <label for="przedmiot">Przedmiot:</label>
-        <input type="text" id="przedmiot" required><br>
-
-        <label for="ocena">Ocena:</label>
-        <input type="number" id="ocena" required><br>
-
-        <button type="submit">Dodaj ocenę</button>
-    </form>
-
-    <!-- Formularz do dodawania obecności -->
-    <h2>Dodaj obecność</h2>
-    <form id="form-obecnosc">
-        <label for="uczen-obecnosc">Uczeń:</label>
-        <select id="uczen-obecnosc" required></select><br>
-
-        <label for="obecnosc">Obecność:</label>
-        <select id="obecnosc" required>
-            <option value="obecny">Obecny</option>
-            <option value="nieobecny">Nieobecny</option>
-        </select><br>
-
-        <button type="submit">Dodaj obecność</button>
-    </form>
-
-    <!-- Formularz do dodawania uwag -->
-    <h2>Dodaj uwagę</h2>
-    <form id="form-uwaga">
-        <label for="uczen-uwaga">Uczeń:</label>
-        <select id="uczen-uwaga" required></select><br>
-
-        <label for="uwaga">Treść uwagi:</label>
-        <textarea id="uwaga" required></textarea><br>
-
-        <button type="submit">Dodaj uwagę</button>
-    </form>
-
-    <!-- Formularz do dodawania usprawiedliwienia -->
-    <h2>Dodaj usprawiedliwienie</h2>
-    <form id="form-usprawiedliwienie">
-        <label for="uczen-usprawiedliwienie">Uczeń:</label>
-        <select id="uczen-usprawiedliwienie" required></select><br>
-
-        <label for="usprawiedliwienie">Treść usprawiedliwienia:</label>
-        <textarea id="usprawiedliwienie" required></textarea><br>
-
-        <button type="submit">Dodaj usprawiedliwienie</button>
-    </form>
-
-    <h2>Przegląd Ocen</h2>
-<form id="form-przeglad-ocen">
-    <label for="uczen-przeglad">Wybierz ucznia:</label>
-    <select id="uczen-przeglad"></select>
-    <button type="submit">Pokaż Oceny</button>
-</form>
-<div id="oceny-lista"></div>
-
+        <ul>
+            <li><a href="lekcje.html">Lekcje</a></li>
+            <li><a href="uczniowie.html">Uczniowie</a></li>
+            <li><a href="klasa.html">Moja Klasa</a></li>
+        </ul>
+    </nav>
     
-</section>
+    <h1>Witaj w E-dzienniku!</h1>
+    <p>Wybierz sekcję z menu.</p>
 
-    <section id="administracja">
-    <h2>Administracja</h2>
-    <!-- Tutaj dodaj zawartość dotycząca admina -->
-
-    <!-- Formularz do dodawania ucznia -->
-    <h2>Dodaj ucznia</h2>
-    <form id="form-uczen">
-        <label for="uczen-imie">Imię:</label>
-        <input type="text" id="uczen-imie" required><br>
-
-        <label for="uczen-nazwisko">Nazwisko:</label>
-        <input type="text" id="uczen-nazwisko" required><br>
-
-        <button type="submit">Dodaj ucznia</button>
-    </form>
-        
-</section>
-
-    ----------
-
-   
-
-    <script src="script.js"></script>
-
+    <script src="script.js"></script> <!-- Twój JS, jeśli potrzebny -->
 </body>
 </html>
