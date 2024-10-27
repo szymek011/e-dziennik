@@ -121,6 +121,10 @@ document.getElementById('form-usprawiedliwienie').addEventListener('submit', asy
     }
 });
 
+
+// Naładowanie uczniów na stronie
+dodajUczniowDoSelect();
+
 // Funkcja przeglądania ocen
 document.getElementById('form-przeglad-ocen').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -169,5 +173,53 @@ async function dodajUczniowDoSelectPrzeglad() {
 // Wywołanie funkcji, aby naładować uczniów
 dodajUczniowDoSelectPrzeglad();
 
-// Naładowanie uczniów na stronie
-dodajUczniowDoSelect();
+async function dodajUczniowDoSelectPrzeglad() {
+    const select = document.getElementById('uczen-przeglad');
+
+    try {
+        const querySnapshot = await db.collection('uczniowie').get();
+        select.innerHTML = ''; // Czyści istniejące opcje
+        if (querySnapshot.empty) {
+            console.log("Brak uczniów w bazie danych.");
+            return;
+        }
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const option = document.createElement('option');
+            option.value = doc.id; // ID ucznia
+            option.textContent = `${data.imie} ${data.nazwisko}`;
+            select.appendChild(option);
+        });
+        console.log("Uczniowie załadowani:", select.innerHTML);
+    } catch (error) {
+        console.error("Błąd przy pobieraniu uczniów:", error);
+    }
+}
+
+
+document.getElementById('form-przeglad-ocen').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczenId = document.getElementById('uczen-przeglad').value;
+
+    const ocenyLista = document.getElementById('oceny-lista');
+    ocenyLista.innerHTML = ''; // Czyści poprzednie oceny
+
+    try {
+        const querySnapshot = await db.collection('oceny').where('uczenId', '==', uczenId).get();
+        if (querySnapshot.empty) {
+            ocenyLista.innerHTML = 'Brak ocen dla tego ucznia.';
+            console.log("Brak ocen dla ucznia o ID:", uczenId);
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const ocenaElement = document.createElement('p');
+            ocenaElement.textContent = `Ocena: ${data.ocena} z ${data.przedmiot}`;
+            ocenyLista.appendChild(ocenaElement);
+            console.log("Pobrana ocena:", data);
+        });
+    } catch (error) {
+        console.error("Błąd przy pobieraniu ocen:", error);
+    }
+});
