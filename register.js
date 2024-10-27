@@ -38,3 +38,15 @@ registerForm.addEventListener('submit', (event) => {
             console.error("Błąd przy rejestracji:", error);
         });
 });
+
+async function registerTeacher(email, password) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        
+        // Użytkownik został pomyślnie zarejestrowany, przekieruj do administracja.html
+        window.location.href = 'administracja.html';
+    } catch (error) {
+        console.error('Błąd przy rejestracji:', error);
+        alert('Błąd przy rejestracji: ' + error.message);
+    }
+}
