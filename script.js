@@ -16,8 +16,18 @@ const auth = firebase.auth();
 async function login(email, password) {
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        // Użytkownik pomyślnie zalogowany, przekieruj do administracja.html
-        window.location.href = 'administracja.html';
+        const user = userCredential.user;
+
+        // Pobierz rolę użytkownika z Firestore
+        const doc = await firebase.firestore().collection('users').doc(user.uid).get();
+        if (doc.exists) {
+            const userData = doc.data();
+            if (userData.role === 'nauczyciel') {
+                window.location.href = 'administrator.html';
+            } else {
+                window.location.href = 'uczen.html'; // lub inna strona dla ucznia
+            }
+        }
     } catch (error) {
         console.error('Błąd przy logowaniu:', error);
         alert('Błąd przy logowaniu: ' + error.message);
@@ -32,10 +42,20 @@ function handleLogin(event) {
 }
 
 async function register(email, password) {
+    const role = document.getElementById('role').value; // Pobierz rolę
+
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // Zapisz rolę użytkownika w Firestore
+        await firebase.firestore().collection('users').doc(user.uid).set({
+            email: email,
+            role: role
+        });
+
         // Użytkownik pomyślnie zarejestrowany, przekieruj do administracja.html
-        window.location.href = 'administracja.html'; // Upewnij się, że to jest ta strona
+        window.location.href = 'administracja.html';
     } catch (error) {
         console.error('Błąd przy rejestracji:', error);
         alert('Błąd przy rejestracji: ' + error.message);
