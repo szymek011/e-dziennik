@@ -17,8 +17,44 @@
         </ul>
     </nav>
     
-    <h1>Lekcje</h1>
-    <p>Tutaj możesz zarządzać lekcjami.</p>
+    <h2>Dodaj Ucznia</h2>
+    <form id="addStudentForm">
+        <input type="text" id="studentName" placeholder="Imię i nazwisko" required>
+        <button type="submit">Dodaj Ucznia</button>
+    </form>
+
+     <h2>Dodaj Ocenę</h2>
+    <form id="addGradeForm">
+        <input type="text" id="studentIdForGrade" placeholder="ID Ucznia" required>
+        <input type="number" id="grade" placeholder="Ocena" required>
+        <button type="submit">Dodaj Ocenę</button>
+    </form>
+
+        <h2>Dodaj Obecność</h2>
+    <form id="addAttendanceForm">
+        <input type="text" id="studentIdForAttendance" placeholder="ID Ucznia" required>
+        <input type="date" id="attendanceDate" required>
+        <select id="attendanceStatus" required>
+            <option value="">Wybierz status</option>
+            <option value="obecny">Obecny</option>
+            <option value="nieobecny">Nieobecny</option>
+        </select>
+        <button type="submit">Dodaj Obecność</button>
+    </form>
+
+        <h2>Dodaj Uwagi</h2>
+    <form id="addRemarkForm">
+        <input type="text" id="studentIdForRemark" placeholder="ID Ucznia" required>
+        <textarea id="remark" placeholder="Uwagi" required></textarea>
+        <button type="submit">Dodaj Uwagi</button>
+    </form>
+
+        <h2>Dodaj Usprawiedliwienie</h2>
+    <form id="addExcuseForm">
+        <input type="text" id="studentIdForExcuse" placeholder="ID Ucznia" required>
+        <textarea id="excuse" placeholder="Usprawiedliwienie" required></textarea>
+        <button type="submit">Dodaj Usprawiedliwienie</button>
+    </form>
 
     <script src="script.js"></script> <!-- Twój JS, jeśli potrzebny -->
 </body>
