@@ -223,3 +223,21 @@ document.getElementById('form-przeglad-ocen').addEventListener('submit', async f
         console.error("Błąd przy pobieraniu ocen:", error);
     }
 });
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    // Twoja logika
+    sendResponse({ success: true });
+    return true; // Oznacza, że odpowiedź jest asynchroniczna
+});
+
+try {
+    // Kod do pobrania danych
+} catch (error) {
+    console.error("Błąd:", error);
+}
+
+firebase.initializeApp(firebaseConfig).then(() => {
+    console.log("Firebase pomyślnie zainicjalizowany");
+}).catch(error => {
+    console.error("Błąd podczas inicjalizacji Firebase:", error);
+});
