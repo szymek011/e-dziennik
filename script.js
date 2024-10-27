@@ -11,6 +11,26 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const auth = firebase.auth();
+
+async function login(email, password) {
+    try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        // Użytkownik pomyślnie zalogowany, przekieruj do administracja.html
+        window.location.href = 'administracja.html';
+    } catch (error) {
+        console.error('Błąd przy logowaniu:', error);
+        alert('Błąd przy logowaniu: ' + error.message);
+    }
+}
+
+function handleLogin(event) {
+    event.preventDefault(); // Zapobiega przeładowaniu strony
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    login(email, password); // Wywołuje funkcję logowania
+}
+
 const db = firebase.firestore();
 
 // Funkcja do dodawania ucznia
