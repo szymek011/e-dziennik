@@ -1,11 +1,12 @@
 // Konfiguracja Firebase (upewnij się, że masz tę część w swoim pliku)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyCtn4fGznbbw9omCQd1TbeOlUBQr1ESIrc",
+  authDomain: "obowiazki-domowe.firebaseapp.com",
+  projectId: "obowiazki-domowe",
+  storageBucket: "obowiazki-domowe.appspot.com",
+  messagingSenderId: "415821973840",
+  appId: "1:415821973840:web:d57e4c84dfbacc1114c455",
+  measurementId: "G-XJFKK884VC"
 };
 
 firebase.initializeApp(firebaseConfig);
