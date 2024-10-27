@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja</title>
+</head>
+<body>
+    <h1>Rejestracja</h1>
+    <form id="registerForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Hasło" required>
+        <select id="role" required>
+            <option value="">Wybierz rolę</option>
+            <option value="uczen">Uczeń</option>
+            <option value="nauczyciel">Nauczyciel</option>
+        </select>
+        <button type="submit">Zarejestruj</button>
+    </form>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>
