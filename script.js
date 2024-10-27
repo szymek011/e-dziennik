@@ -121,5 +121,53 @@ document.getElementById('form-usprawiedliwienie').addEventListener('submit', asy
     }
 });
 
+// Funkcja przeglądania ocen
+document.getElementById('form-przeglad-ocen').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const uczenId = document.getElementById('uczen-przeglad').value;
+
+    const ocenyLista = document.getElementById('oceny-lista');
+    ocenyLista.innerHTML = ''; // Czyści poprzednie oceny
+
+    try {
+        const querySnapshot = await db.collection('oceny').where('uczenId', '==', uczenId).get();
+        if (querySnapshot.empty) {
+            ocenyLista.innerHTML = 'Brak ocen dla tego ucznia.';
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const ocenaElement = document.createElement('p');
+            ocenaElement.textContent = `Ocena: ${data.ocena} z ${data.przedmiot}`;
+            ocenyLista.appendChild(ocenaElement);
+        });
+    } catch (error) {
+        console.error("Błąd przy pobieraniu ocen:", error);
+    }
+});
+
+// Funkcja dodająca uczniów do select w przeglądzie ocen
+async function dodajUczniowDoSelectPrzeglad() {
+    const select = document.getElementById('uczen-przeglad');
+
+    try {
+        const querySnapshot = await db.collection('uczniowie').get();
+        select.innerHTML = ''; // Czyści istniejące opcje
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const option = document.createElement('option');
+            option.value = doc.id; // ID ucznia
+            option.textContent = `${data.imie} ${data.nazwisko}`;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Błąd przy pobieraniu uczniów:", error);
+    }
+}
+
+// Wywołanie funkcji, aby naładować uczniów
+dodajUczniowDoSelectPrzeglad();
+
 // Naładowanie uczniów na stronie
 dodajUczniowDoSelect();
