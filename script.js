@@ -31,6 +31,24 @@ function handleLogin(event) {
     login(email, password); // Wywołuje funkcję logowania
 }
 
+async function register(email, password) {
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        // Użytkownik pomyślnie zarejestrowany, przekieruj do administracja.html
+        window.location.href = 'administracja.html';
+    } catch (error) {
+        console.error('Błąd przy rejestracji:', error);
+        alert('Błąd przy rejestracji: ' + error.message);
+    }
+}
+
+function handleRegister(event) {
+    event.preventDefault(); // Zapobiega przeładowaniu strony
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    register(email, password); // Wywołuje funkcję rejestracji
+}
+
 const db = firebase.firestore();
 
 // Funkcja do dodawania ucznia
