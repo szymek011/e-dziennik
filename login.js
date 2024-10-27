@@ -39,3 +39,15 @@ loginForm.addEventListener('submit', (event) => {
             console.error("Błąd przy logowaniu:", error);
         });
 });
+
+async function login(email, password) {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        
+        // Użytkownik pomyślnie zalogowany, przekieruj do administracja.html
+        window.location.href = 'administracja.html';
+    } catch (error) {
+        console.error('Błąd przy logowaniu:', error);
+        alert('Błąd przy logowaniu: ' + error.message);
+    }
+}
