@@ -3,23 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"> <!-- Zmień na ścieżkę do swojego CSS -->
-    <title>E-dziennik</title>
+    <title>Logowanie/Rejestracja</title>
+    <style>
+        /* Prosty styl dla formularzy */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin: 20px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <nav id="menu">
-        <ul>
-            <li><a href="index.html">Strona Główna</a></li>
-            <li><a href="lekcje.html">Lekcje</a></li>
-            <li><a href="uczniowie.html">Uczniowie</a></li>
-            <li><a href="klasa.html">Moja Klasa</a></li>
-            <li><a href="administracja.html">Administracja</a></li>
-        </ul>
-    </nav>
+    <h1 id="formTitle">Logowanie</h1>
     
-    <h1>Witaj w E-dzienniku!</h1>
-    <p>Wybierz sekcję z menu.</p>
+    <form id="loginForm" class="hidden">
+        <h2>Logowanie</h2>
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Hasło" required>
+        <button type="submit">Zaloguj</button>
+        <button type="button" id="showRegister">Zarejestruj się</button>
+    </form>
 
-    <script src="script.js"></script> <!-- Twój JS, jeśli potrzebny -->
+    <form id="registerForm" class="hidden">
+        <h2>Rejestracja</h2>
+        <input type="email" id="registerEmail" placeholder="Email" required>
+        <input type="password" id="registerPassword" placeholder="Hasło" required>
+        <select id="role" required>
+            <option value="">Wybierz rolę</option>
+            <option value="uczen">Uczeń</option>
+            <option value="nauczyciel">Nauczyciel</option>
+        </select>
+        <button type="submit">Zarejestruj</button>
+        <button type="button" id="showLogin">Zaloguj się</button>
+    </form>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
