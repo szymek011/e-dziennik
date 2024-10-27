@@ -35,7 +35,7 @@ async function register(email, password) {
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         // Użytkownik pomyślnie zarejestrowany, przekieruj do administracja.html
-        window.location.href = 'administracja.html';
+        window.location.href = 'administracja.html'; // Upewnij się, że to jest ta strona
     } catch (error) {
         console.error('Błąd przy rejestracji:', error);
         alert('Błąd przy rejestracji: ' + error.message);
