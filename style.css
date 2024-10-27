@@ -69,3 +69,32 @@ h2 {
 p {
     margin: 5px 0;
 }
+
+
+#menu {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+#menu a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+#menu a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
