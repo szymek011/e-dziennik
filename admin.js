@@ -5,7 +5,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 const userRole = doc.data().role;
                 if (userRole !== 'nauczyciel') {
                     // Jeśli użytkownik nie jest nauczycielem, przekieruj go
-                    window.location.href = "uczen.html"; // Lub inna strona
+                    window.location.href = "uczniowie.html"; // Lub inna strona
                 }
             }
         }).catch((error) => {
